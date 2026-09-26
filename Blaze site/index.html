@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>blaze — одежда и снаряжение для первого похода</title>
+  <meta name="description" content="blaze — бренд туристической одежды и снаряжения для тех, кто только начинает. Соберём комплект под ваш маршрут, сезон и опыт.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%235E4A38'/%3E%3Crect x='6' y='5' width='5' height='22' fill='%23F4EFE6'/%3E%3Crect x='13.5' y='5' width='5' height='22' fill='%23D8452B'/%3E%3Crect x='21' y='5' width='5' height='22' fill='%23F4EFE6'/%3E%3C/svg%3E">
+  <script>
+    /* режим «день / ночь» и анимация меток ставятся до отрисовки, чтобы ничего не мигало */
+    (function () {
+      var d = document.documentElement, m = null;
+      try { m = localStorage.getItem('blaze-mode'); } catch (e) {}
+      if (m !== 'night' && m !== 'day') { var h = new Date().getHours(); m = h >= 21 || h < 6 ? 'night' : 'day'; }
+      d.setAttribute('data-mode', m);
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('paint-ready');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top" data-page="home">
+  <a class="skip-link" href="#main">к содержимому</a>
+
+  <!-- 1. Шапка -->
+  <header class="header" data-theme="light">
+    <div class="container header__inner">
+      <a class="header__logo" href="#top">
+        <img class="logo-day" src="assets/blaze_logo_dark.svg" alt="blaze — на главную" width="130" height="36">
+        <img class="logo-night" src="assets/blaze_logo_light.svg" alt="blaze — на главную" width="130" height="36">
+      </a>
+
+      <nav class="nav" id="site-nav" aria-label="основное меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="#catalog">каталог</a></li>
+          <li><a class="nav__link" href="#about">о бренде</a></li>
+          <li><a class="nav__link nav__link--accent" href="#builder">собрать поход</a></li>
+        </ul>
+      </nav>
+
+      <button class="cart-btn" type="button" data-cart-open aria-controls="cart" aria-expanded="false">
+        <span class="cart-btn__label">корзина</span>
+        <span class="cart-btn__count" data-cart-count>0</span>
+      </button>
+
+      <button class="mode-btn" type="button" data-mode-toggle aria-pressed="false" aria-label="ночной режим">
+        <span class="mode-btn__day">день</span><span class="mode-btn__sep" aria-hidden="true">/</span><span class="mode-btn__night">ночь</span>
+      </button>
+
+      <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="открыть меню">
+        <span class="burger__lines" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- 2. Первый экран -->
+    <section class="hero section--bark" data-theme="dark" aria-labelledby="hero-title">
+      <div class="hero__text">
+        <p class="hero__eyebrow">одежда и снаряжение для туризма</p>
+        <h1 id="hero-title" class="hero__title">первый поход&nbsp;— без&nbsp;лишних вопросов</h1>
+        <p class="hero__lead">Соберём комплект одежды и снаряжения под ваш маршрут, сезон и опыт</p>
+        <a class="btn btn--primary btn--lg hero__cta" href="#builder">
+          собрать поход
+          <span class="mark mark-right" aria-hidden="true"></span>
+        </a>
+      </div>
+
+      <figure class="hero__photo">
+        <img src="assets/photos/hero.webp" width="1536" height="1024"
+             alt="Одинокая палатка на поляне у озера в утреннем тумане, среди сосен">
+        <span class="hero__seam" aria-hidden="true"></span>
+      </figure>
+    </section>
+
+    <!-- 3. Конструктор похода -->
+    <section id="builder" class="section section--birch" data-theme="light" aria-labelledby="builder-title">
+      <div class="container">
+        <div class="grid section-head">
+          <h2 id="builder-title" class="section-title">собрать поход</h2>
+          <p class="section-lead">Пять вопросов&nbsp;— и&nbsp;мы подскажем, что взять с&nbsp;собой и&nbsp;как надевать слои.</p>
+        </div>
+
+        <div class="builder">
+          <div class="builder__meta">
+            <p class="eyebrow" id="builder-step-label">шаг 1 из 5</p>
+            <div class="progress" id="builder-progress" role="progressbar"
+                 aria-label="прогресс конструктора" aria-valuemin="0" aria-valuemax="5" aria-valuenow="1"></div>
+          </div>
+
+          <div class="builder__stage" id="builder-stage">
+            <noscript><p>Для конструктора похода нужен включённый JavaScript.</p></noscript>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. Собери рюкзак -->
+    <section id="pack" class="section section--white" data-theme="light" aria-labelledby="pack-title">
+      <div class="container">
+        <div class="grid section-head">
+          <h2 id="pack-title" class="section-title">собери рюкзак</h2>
+          <p class="section-lead">Перетащите вещи в&nbsp;рюкзак или нажмите «+». Вес и&nbsp;объём посчитаются сами.</p>
+        </div>
+
+        <div class="grid pack">
+          <div class="pack__shelf" data-drop="shelf">
+            <h3 class="pack__subtitle">вещи</h3>
+            <ul class="pack__items" id="pack-available"></ul>
+          </div>
+
+          <div class="pack__panel" data-drop="pack">
+            <fieldset class="pack__volume">
+              <legend class="pack__subtitle">литраж рюкзака</legend>
+              <div class="segmented">
+                <label class="segmented__item"><input type="radio" name="pack-volume" value="25"><span>25 л</span></label>
+                <label class="segmented__item"><input type="radio" name="pack-volume" value="45"><span>45 л</span></label>
+                <label class="segmented__item"><input type="radio" name="pack-volume" value="65"><span>65 л</span></label>
+              </div>
+            </fieldset>
+
+            <div class="pack__status">
+              <svg class="pack__svg" viewBox="0 0 160 240" role="img" aria-labelledby="pack-svg-title">
+                <title id="pack-svg-title">рюкзак пуст</title>
+                <defs>
+                  <clipPath id="pack-clip">
+                    <rect x="36" y="18" width="88" height="38"/>
+                    <rect x="20" y="56" width="120" height="176"/>
+                  </clipPath>
+                </defs>
+                <g clip-path="url(#pack-clip)">
+                  <rect class="pack__fill" x="0" y="18" width="160" height="214"/>
+                </g>
+                <rect class="pack__line" x="66" y="4" width="28" height="14"/>
+                <rect class="pack__line" x="36" y="18" width="88" height="38"/>
+                <rect class="pack__line" x="20" y="56" width="120" height="176"/>
+                <rect class="pack__line" x="46" y="150" width="68" height="60"/>
+              </svg>
+
+              <div class="pack__readout">
+                <div class="pack__stats">
+                  <p class="pack__stat"><span class="pack__num" id="pack-weight">0,0</span> <span class="pack__unit">кг</span></p>
+                  <p class="pack__stat"><span class="pack__num" id="pack-volume">0</span> <span class="pack__unit" id="pack-max">из 45 л</span></p>
+                </div>
+                <p class="pack__hint" id="pack-hint" aria-live="polite"></p>
+              </div>
+            </div>
+
+            <h3 class="pack__subtitle" id="pack-packed-title" tabindex="-1">в рюкзаке</h3>
+            <ul class="pack__items pack__items--packed" id="pack-packed"></ul>
+            <p class="pack__empty" id="pack-empty">Пока пусто: перетащите сюда вещи или нажмите «+».</p>
+
+            <div class="pack__actions">
+              <button class="btn btn--outline" type="button" data-pack-kit>взять из конструктора</button>
+              <button class="link-btn" type="button" data-pack-clear>выложить всё</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. О бренде -->
+    <section id="about" class="section section--bark" data-theme="dark" aria-labelledby="about-title">
+      <div class="container grid about">
+        <figure class="about__photo">
+          <img src="assets/photos/about.webp" width="1536" height="1024" loading="lazy"
+               alt="Берёза у лесной тропы с вертикальной красной меткой краской на стволе">
+        </figure>
+
+        <div class="about__text">
+          <h2 id="about-title" class="section-title">метка на&nbsp;тропе</h2>
+          <p class="about__body">На маршрутах путь отмечают краской на&nbsp;деревьях. Метка не&nbsp;кричит, но&nbsp;ей доверяешь: значит, ты&nbsp;на&nbsp;верном пути. Мы&nbsp;хотим быть первой такой меткой для тех, кто только начинает.</p>
+        </div>
+
+        <ul class="trail" aria-label="система меток blaze">
+          <li class="trail__item">
+            <div class="trail__mark" aria-hidden="true"><div class="mark mark-start"></div></div>
+            <h3 class="trail__title">старт</h3>
+            <p class="trail__text">начало маршрута</p>
+          </li>
+          <li class="trail__item">
+            <div class="trail__mark" aria-hidden="true"><div class="mark mark-straight"></div></div>
+            <h3 class="trail__title">прямо</h3>
+            <p class="trail__text">продолжить, далее</p>
+          </li>
+          <li class="trail__item">
+            <div class="trail__mark" aria-hidden="true"><div class="mark mark-right"></div></div>
+            <h3 class="trail__title">направо</h3>
+            <p class="trail__text">следующий шаг</p>
+          </li>
+          <li class="trail__item">
+            <div class="trail__mark" aria-hidden="true"><div class="mark mark-left"></div></div>
+            <h3 class="trail__title">налево</h3>
+            <p class="trail__text">предыдущий шаг</p>
+          </li>
+          <li class="trail__item">
+            <div class="trail__mark" aria-hidden="true">
+              <div class="mark mark-start mark-finish"><span class="mark__slash"></span></div>
+            </div>
+            <h3 class="trail__title">финиш</h3>
+            <p class="trail__text">комплект собран</p>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- 6. Каталог (карточки собираются из data.js) -->
+    <section id="catalog" class="section section--white" data-theme="light" aria-labelledby="catalog-title">
+      <div class="container">
+        <div class="grid section-head">
+          <h2 id="catalog-title" class="section-title">каталог</h2>
+          <p class="section-lead">Вещи, с&nbsp;которых начинается первый маршрут. Нажмите на&nbsp;карточку, чтобы открыть паспорт вещи.</p>
+        </div>
+
+        <ul class="products" id="products">
+          <noscript><li>Для каталога нужен включённый JavaScript.</li></noscript>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <!-- 7. Подвал -->
+  <footer class="footer" data-theme="dark">
+    <div class="container">
+      <div class="grid footer__top">
+        <div class="footer__brand">
+          <img src="assets/blaze_logo_light.svg" alt="blaze" width="144" height="40">
+          <p>Одежда и снаряжение для&nbsp;первого похода.</p>
+        </div>
+
+        <div class="footer__col">
+          <h2 class="footer__title">контакты</h2>
+          <address class="footer__list">
+            <a href="mailto:hello@blaze.example">hello@blaze.example</a>
+            <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+            <span>Москва, ул. Тропинная, 1</span>
+          </address>
+        </div>
+
+        <nav class="footer__col" aria-label="разделы сайта">
+          <h2 class="footer__title">разделы</h2>
+          <ul class="footer__list">
+            <li><a href="#catalog">каталог</a></li>
+            <li><a href="#about">о бренде</a></li>
+            <li><a href="#builder">собрать поход</a></li>
+            <li><a href="#pack">собери рюкзак</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <p class="footer__copy">© blaze, 2026 · учебный проект</p>
+    </div>
+  </footer>
+
+  <!-- Корзина -->
+  <div class="cart-overlay" data-cart-close hidden></div>
+  <aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="cart__head">
+      <h2 class="cart__title" id="cart-title" tabindex="-1">корзина</h2>
+      <button class="cart__close" type="button" data-cart-close aria-label="закрыть корзину">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="cart__body" id="cart-body"></div>
+    <div class="cart__foot" id="cart-foot"></div>
+  </aside>
+
+  <!-- Тост -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="mark mark-straight" aria-hidden="true"></span>
+    <span class="toast__text"></span>
+  </div>
+
+  <!-- Лист для печати чек-листа (виден только при печати) -->
+  <div class="print-sheet" aria-hidden="true">
+    <img class="print-sheet__logo" src="assets/blaze_logo_dark.svg" alt="blaze" width="160" height="44">
+    <div id="print-sheet-body"></div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

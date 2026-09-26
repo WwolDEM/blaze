@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>паспорт вещи · blaze</title>
+  <meta name="description" content="Паспорт вещи blaze: из чего сделана, как ухаживать и куда с ней идти.">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%235E4A38'/%3E%3Crect x='6' y='5' width='5' height='22' fill='%23F4EFE6'/%3E%3Crect x='13.5' y='5' width='5' height='22' fill='%23D8452B'/%3E%3Crect x='21' y='5' width='5' height='22' fill='%23F4EFE6'/%3E%3C/svg%3E">
+  <script>
+    /* режим «день / ночь» и анимация меток ставятся до отрисовки, чтобы ничего не мигало */
+    (function () {
+      var d = document.documentElement, m = null;
+      try { m = localStorage.getItem('blaze-mode'); } catch (e) {}
+      if (m !== 'night' && m !== 'day') { var h = new Date().getHours(); m = h >= 21 || h < 6 ? 'night' : 'day'; }
+      d.setAttribute('data-mode', m);
+      if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) d.classList.add('paint-ready');
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body id="top" data-page="item">
+  <a class="skip-link" href="#main">к содержимому</a>
+
+  <header class="header" data-theme="light">
+    <div class="container header__inner">
+      <a class="header__logo" href="index.html">
+        <img class="logo-day" src="assets/blaze_logo_dark.svg" alt="blaze — на главную" width="130" height="36">
+        <img class="logo-night" src="assets/blaze_logo_light.svg" alt="blaze — на главную" width="130" height="36">
+      </a>
+
+      <nav class="nav" id="site-nav" aria-label="основное меню">
+        <ul class="nav__list">
+          <li><a class="nav__link" href="index.html#catalog">каталог</a></li>
+          <li><a class="nav__link" href="index.html#about">о бренде</a></li>
+          <li><a class="nav__link nav__link--accent" href="index.html#builder">собрать поход</a></li>
+        </ul>
+      </nav>
+
+      <button class="cart-btn" type="button" data-cart-open aria-controls="cart" aria-expanded="false">
+        <span class="cart-btn__label">корзина</span>
+        <span class="cart-btn__count" data-cart-count>0</span>
+      </button>
+
+      <button class="mode-btn" type="button" data-mode-toggle aria-pressed="false" aria-label="ночной режим">
+        <span class="mode-btn__day">день</span><span class="mode-btn__sep" aria-hidden="true">/</span><span class="mode-btn__night">ночь</span>
+      </button>
+
+      <button class="burger" type="button" aria-expanded="false" aria-controls="site-nav" aria-label="открыть меню">
+        <span class="burger__lines" aria-hidden="true"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Содержимое собирается из data.js по параметру ?id= -->
+  <main id="main">
+    <div id="item">
+      <noscript>
+        <section class="section section--birch"><div class="container"><p>Для паспорта вещи нужен включённый JavaScript.</p></div></section>
+      </noscript>
+    </div>
+  </main>
+
+  <footer class="footer" data-theme="dark">
+    <div class="container">
+      <div class="grid footer__top">
+        <div class="footer__brand">
+          <img src="assets/blaze_logo_light.svg" alt="blaze" width="144" height="40">
+          <p>Одежда и снаряжение для&nbsp;первого похода.</p>
+        </div>
+
+        <div class="footer__col">
+          <h2 class="footer__title">контакты</h2>
+          <address class="footer__list">
+            <a href="mailto:hello@blaze.example">hello@blaze.example</a>
+            <a href="tel:+70000000000">+7 (000) 000-00-00</a>
+            <span>Москва, ул. Тропинная, 1</span>
+          </address>
+        </div>
+
+        <nav class="footer__col" aria-label="разделы сайта">
+          <h2 class="footer__title">разделы</h2>
+          <ul class="footer__list">
+            <li><a href="index.html#catalog">каталог</a></li>
+            <li><a href="index.html#about">о бренде</a></li>
+            <li><a href="index.html#builder">собрать поход</a></li>
+            <li><a href="index.html#pack">собери рюкзак</a></li>
+          </ul>
+        </nav>
+      </div>
+
+      <p class="footer__copy">© blaze, 2026 · учебный проект</p>
+    </div>
+  </footer>
+
+  <div class="cart-overlay" data-cart-close hidden></div>
+  <aside class="cart" id="cart" role="dialog" aria-modal="true" aria-labelledby="cart-title" hidden>
+    <div class="cart__head">
+      <h2 class="cart__title" id="cart-title" tabindex="-1">корзина</h2>
+      <button class="cart__close" type="button" data-cart-close aria-label="закрыть корзину">
+        <span aria-hidden="true"></span>
+      </button>
+    </div>
+    <div class="cart__body" id="cart-body"></div>
+    <div class="cart__foot" id="cart-foot"></div>
+  </aside>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <span class="mark mark-straight" aria-hidden="true"></span>
+    <span class="toast__text"></span>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
